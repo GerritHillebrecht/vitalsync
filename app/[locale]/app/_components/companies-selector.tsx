@@ -10,16 +10,8 @@ export function Companies() {
 
   return (
     <div>
-      {/* <pre>
-        <code>{JSON.stringify(account, null, 2)}</code>
-      </pre> */}
       {account?.companies?.map((company) => (
         <div key={company.id} className="flex items-center gap-x-2">
-          <img
-            src={company.company_name}
-            alt={company.company_name}
-            className="w-8 h-8 rounded-full"
-          />
           <Link href={`/${locale}/app/${company.id}`}>
             <span>{company.company_name}</span>
           </Link>
@@ -30,11 +22,6 @@ export function Companies() {
                 key={workspace.id}
                 className="flex items-center gap-x-2"
               >
-                <img
-                  src={workspace.workspace_name}
-                  alt={workspace.workspace_name}
-                  className="w-8 h-8 rounded-full"
-                />
                 <span>{workspace.workspace_name}</span>
               </Link>
             ))}

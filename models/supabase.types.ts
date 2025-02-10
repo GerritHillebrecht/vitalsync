@@ -299,6 +299,39 @@ export type Database = {
           },
         ]
       }
+      shiftServices_clients: {
+        Row: {
+          client_id: string
+          created_at: string
+          shiftService_id: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          shiftService_id: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          shiftService_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shiftServices_clients_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shiftServices_clients_shiftService_id_fkey"
+            columns: ["shiftService_id"]
+            isOneToOne: false
+            referencedRelation: "shiftServices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shiftServiceType: {
         Row: {
           created_at: string

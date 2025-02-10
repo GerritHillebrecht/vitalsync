@@ -66,7 +66,7 @@ export function PlannerContextProvider({
         );
       }
     }
-  }, [company_id, workspace_id]);
+  }, [company_id, workspace_id, account.companies]);
 
   useEffect(() => {
     const start = searchParams.get("start");
