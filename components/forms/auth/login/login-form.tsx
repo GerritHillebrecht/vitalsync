@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
-import { useScopedI18n } from "@/locales/client";
+import { useCurrentLocale, useScopedI18n } from "@/locales/client";
 import { Loader, TriangleAlert } from "lucide-react";
 import { useActionState } from "react";
 
@@ -22,11 +22,25 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const locale = useCurrentLocale();
   const [state, formAction, pending] = useActionState(login, { message: "" });
   const t = useScopedI18n("auth.login");
-  function googleLogin() {
+
+  async function googleLogin() {
+    const path = `${window.location.origin}/${locale}/auth/callback`;
+    console.log(path);
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 5000);
+    });
+
     const supabase = createClient();
-    supabase.auth.signInWithOAuth({ provider: "google" });
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/${locale}/auth/callback`,
+      },
+    });
   }
 
   return (

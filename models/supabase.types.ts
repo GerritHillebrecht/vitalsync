@@ -17,7 +17,7 @@ export type Database = {
           firstname: string
           id: string
           lastname: string
-          selected_company: string
+          selected_company: string | null
         }
         Insert: {
           auth_id: string
@@ -26,7 +26,7 @@ export type Database = {
           firstname: string
           id?: string
           lastname: string
-          selected_company: string
+          selected_company?: string | null
         }
         Update: {
           auth_id?: string
@@ -35,7 +35,7 @@ export type Database = {
           firstname?: string
           id?: string
           lastname?: string
-          selected_company?: string
+          selected_company?: string | null
         }
         Relationships: []
       }

@@ -11,7 +11,7 @@ export function Logo({ className, classNames }: { className?: string, classNames
     <h3 className={className}>
       <span
         className={cn(
-          `font-bold opacity-90 text-3xl ${dmSerifDisplay.className}`,
+          `font-bold opacity-90 text-3xl select-none ${dmSerifDisplay.className}`,
           classNames
         )}
       >

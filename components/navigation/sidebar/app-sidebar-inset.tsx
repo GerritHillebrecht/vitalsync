@@ -47,7 +47,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                   <DropdownMenuContent align="start">
                     <DropdownMenuItem>
                       <BreadcrumbLink asChild>
-                        <Link href={`/${locale}/planner/${company_id}`}>
+                        <Link href={`/${locale}/app/${company_id}`}>
                           {t("overview")}
                         </Link>
                       </BreadcrumbLink>
@@ -70,6 +70,16 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                         </BreadcrumbLink>
                       </DropdownMenuItem>
                     ))}
+                    <Separator />
+                    <DropdownMenuItem>
+                      <BreadcrumbLink asChild>
+                        <Link
+                          href={`/${locale}/app/${company_id}/workspace/create`}
+                        >
+                          Add Workspace
+                        </Link>
+                      </BreadcrumbLink>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
@@ -89,11 +99,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
           <ThemeModeToggle />
         </div>
       </header>
-      <main className="w-full px-4">
-        {/* <Planner> */}
-        {children}
-        {/* </Planner> */}
-      </main>
+      <main className="w-full px-4">{children}</main>
     </SidebarInset>
   );
 }

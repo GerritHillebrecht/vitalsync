@@ -12,7 +12,7 @@ import { ReactNode } from "react";
 
 export default async function Layout({ children }: { children: ReactNode }) {
   console.log("Rendering Layout /app/[locale]/app/layout.tsx");
-  
+
   const {
     data: { user },
   } = await getUser();
@@ -23,15 +23,15 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   const { data: account, error } = await getAccountByAuthID(user.id);
 
-  if (error) {
+  if (error || !account) {
     console.error(error);
-    redirect("/auth/login");
+    redirect("/account/create");
   }
 
-  // TODO: Add create account route
-  if (!account) {
-    redirect("/auth/login");
+  if (!account.companies?.length) {
+    redirect("/company/create");
   }
+
   return (
     <AccountContextProvider account={account} user={user}>
       <PlannerContextProvider>

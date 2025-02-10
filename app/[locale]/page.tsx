@@ -1,5 +1,3 @@
-"use client";
-
 import { AnimatedBeamMultipleOutputDemo } from "@/components/landing/section-animated-beam";
 import { FeatureSection } from "@/components/landing/section-feature";
 import { HeroSection } from "@/components/landing/section-hero";

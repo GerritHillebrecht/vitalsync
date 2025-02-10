@@ -27,6 +27,27 @@ export default {
       cta: "Login",
     },
   },
+  account: {
+    create: {
+      headline: "Create your account",
+      cta: "Create account",
+      firstname: "Firstname",
+      firstname_placeholder: "John",
+      lastname: "Lastname",
+      lastname_placeholder: "Doe",
+      avatar: "Avatar",
+    },
+  },
+  company: {
+    create: {
+      headline: "Create a company",
+      cta: "Create company",
+      company_name: "Company name",
+      company_name_placeholder: "ACME Inc.",
+      short_name: "Company short name",
+      short_name_placeholder: "ACME",
+    },
+  },
   hello: "Hello",
   "hello.world": "Hello world!",
   welcome: "Hello {name}!",
