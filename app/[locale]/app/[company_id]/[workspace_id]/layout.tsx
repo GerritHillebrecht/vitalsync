@@ -1,3 +1,4 @@
+import { Planner } from "@/components/planner";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -8,5 +9,5 @@ export default async function Layout({ children }: LayoutProps) {
   console.log(
     "Rendering Layout /app/[locale]/[company_id]/[workspace_id]/layout.tsx"
   );
-  return <>{children}</>;
+  return <Planner>{children}</Planner>;
 }

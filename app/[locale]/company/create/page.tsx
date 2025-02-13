@@ -1,4 +1,4 @@
-import { CreateCompanyForm } from "@/components/forms/company/create/create-company-form";
+import { CreateCompanyForm } from "@/components/forms";
 
 export default function Page() {
   return (

@@ -14,8 +14,6 @@ export async function createCompany(
   const locale = await getCurrentLocale();
   const formObject = Object.fromEntries(formData.entries());
   const formattedData = { ...formObject, selected_company: null };
-  console.log({ formData });
-  console.log({ formattedData });
   const result = companyFormSchema.safeParse(formattedData);
 
   if (!result.success) {

@@ -1,4 +1,4 @@
-import { CreateAccountForm } from "@/components/forms/account/create/create-account-form";
+import { CreateAccountForm } from "@/components/forms";
 import { getAccountByAuthID, getUser } from "@/lib/data-access";
 import { redirect } from "next/navigation";
 

@@ -27,7 +27,7 @@ export function CompanySwitcher() {
   const locale = useCurrentLocale();
   const t = useScopedI18n("sidebar.companySelector");
   const { isMobile } = useSidebar();
-  const { activeCompany } = usePlanner();
+  const { company } = usePlanner();
   const { account } = useAccount();
 
   return (
@@ -44,17 +44,17 @@ export function CompanySwitcher() {
                 <GalleryVerticalEnd className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                {activeCompany && (
+                {company && (
                   <>
                     <span className="truncate font-semibold">
-                      {activeCompany.company_name}
+                      {company.company_name}
                     </span>
                     <span className="truncate text-xs">
-                      {activeCompany.short_name}
+                      {company.short_name}
                     </span>
                   </>
                 )}
-                {!activeCompany && (
+                {!company && (
                   <>
                     <Skeleton className="w-20 h-3 mb-1" />
                     <Skeleton className="w-8 h-2" />

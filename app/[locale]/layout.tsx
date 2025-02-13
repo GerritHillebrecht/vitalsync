@@ -8,19 +8,11 @@ export function generateStaticParams() {
 }
 
 export default async function SubLayout({
-  params,
   children,
 }: {
-  params: Promise<{ locale: string }>;
   children: ReactElement;
 }) {
   console.log("Rendering Layout /app/[locale]/layout.tsx");
-  const { locale } = await params;
 
-  return (
-    <I18nProviderClient locale={locale}>
-      {children}
-      <Footer />
-    </I18nProviderClient>
-  );
+  return <>{children}</>;
 }

@@ -25,7 +25,7 @@ export async function login(
   }
 
   revalidatePath(`/`, "layout");
-  redirect("/ws");
+  redirect("/app");
 }
 
 export async function signup(formData: FormData) {

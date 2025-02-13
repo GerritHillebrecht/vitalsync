@@ -13,27 +13,31 @@ import { ReactNode } from "react";
 export default async function Layout({ children }: { children: ReactNode }) {
   console.log("Rendering Layout /app/[locale]/app/layout.tsx");
 
-  const {
-    data: { user },
-  } = await getUser();
+  // const {
+  //   data: { user },
+  // } = await getUser();
 
-  if (!user) {
-    redirect("/auth/login");
-  }
+  // if (!user) {
+  //   redirect("/auth/login");
+  // }
 
-  const { data: account, error } = await getAccountByAuthID(user.id);
+  // console.log({ user });
 
-  if (error || !account) {
-    console.error(error);
-    redirect("/account/create");
-  }
+  // const { data: account, error } = await getAccountByAuthID(user.id);
 
-  if (!account.companies?.length) {
-    redirect("/company/create");
-  }
+  // console.log({ account });
+
+  // if (error || !account) {
+  //   console.error(error);
+  //   redirect("/account/create");
+  // }
+
+  // if (!account.companies?.length) {
+  //   redirect("/company/create");
+  // }
 
   return (
-    <AccountContextProvider account={account} user={user}>
+    <AccountContextProvider>
       <PlannerContextProvider>
         <SidebarProvider>
           <AppSiderbar />

@@ -25,7 +25,7 @@ import { useParams } from "next/navigation";
 export function WorkspaceSwitcher() {
   const { locale, company_id } = useParams();
   const { isMobile } = useSidebar();
-  const { activeCompany, activeWorkspace } = usePlanner();
+  const { company: activeCompany, workspace: activeWorkspace } = usePlanner();
 
   return (
     <SidebarMenu>

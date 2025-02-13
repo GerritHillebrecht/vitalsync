@@ -18,17 +18,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FullscreenToggle } from "@/components/ui/fullscreen-selector";
 import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { ThemeModeToggle } from "@/components/ui/theme-selector";
 import { useCurrentLocale, useScopedI18n } from "@/locales/client";
+import { useAccount } from "@/provider";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 export function AppSidebarInset({ children }: { children: ReactNode }) {
+  const { isMobile } = useSidebar();
   const locale = useCurrentLocale();
   const t = useScopedI18n("sidebar.inset");
-  const { company_id, activeCompany, activeWorkspace } = usePlanner();
+
+  const { company_id, company, workspace } = usePlanner();
 
   return (
     <SidebarInset>
@@ -53,7 +60,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                       </BreadcrumbLink>
                     </DropdownMenuItem>
                     <Separator />
-                    {activeCompany?.workspaces?.map((workspace) => (
+                    {company?.workspaces?.map((workspace) => (
                       <DropdownMenuItem key={workspace.id}>
                         <BreadcrumbLink asChild>
                           <Link
@@ -83,14 +90,16 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <ChevronRight />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbPage>
-                  {activeWorkspace?.workspace_name}
-                </BreadcrumbPage>
-              </BreadcrumbItem>
+              {!isMobile && (
+                <>
+                  <BreadcrumbSeparator>
+                    <ChevronRight />
+                  </BreadcrumbSeparator>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{workspace?.workspace_name}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </>
+              )}
             </BreadcrumbList>
           </Breadcrumb>
         </div>

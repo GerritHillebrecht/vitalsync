@@ -3,6 +3,10 @@ import { DM_Sans, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/provider/theme-provider";
 import { CSPostHogProvider } from "@/provider/posthog-provider";
+import { Footer } from "@/components/ui/footer";
+import { I18nProviderClient } from "@/locales/client";
+import { getCurrentLocale } from "@/locales/server";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,11 +41,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getCurrentLocale();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -53,8 +59,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CSPostHogProvider>{children}</CSPostHogProvider>
+          <I18nProviderClient locale={locale}>
+            <CSPostHogProvider>
+              {children}
+              <Footer />
+            </CSPostHogProvider>
+          </I18nProviderClient>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

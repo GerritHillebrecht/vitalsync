@@ -8,3 +8,5 @@ export * from "./supabase.types";
 export * from "./team";
 export * from "./workspace";
 export * from "./workspace-type";
+export * from "./shiftServiceType";
+export * from "./shiftService";

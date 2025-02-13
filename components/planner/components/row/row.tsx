@@ -5,5 +5,9 @@ interface PlannerRowProps {
 }
 
 export function PlannerRow({ children }: PlannerRowProps) {
-  return <div className="rounded-lg border shadow bg-background">{children}</div>;
+  return (
+    <div className="rounded-lg border shadow-lg bg-background overflow-hidden">
+      {children}
+    </div>
+  );
 }
