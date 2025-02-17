@@ -12,7 +12,7 @@ export async function getCompany(
 ) {
   return await supabase
     .from("companies")
-    .select("*, workspaces(*, clients(*), shiftServices(*, clients(*), shiftServiceType(*)), workspaceType:workspaceTypes(*))")
+    .select("*, employees(*), workspaces(*, clients(*), shiftServices(*, clients(*), shiftServiceType(*)), workspaceType:workspaceTypes(*))")
     .eq("id", company_id)
     .abortSignal(abortController.signal)
     .single();

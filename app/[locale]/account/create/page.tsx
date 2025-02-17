@@ -1,4 +1,5 @@
 import { CreateAccountForm } from "@/components/forms";
+import CanvasComponent from "@/components/ui/canvas";
 import { getAccountByAuthID, getUser } from "@/lib/data-access";
 import { redirect } from "next/navigation";
 
@@ -20,11 +21,16 @@ export default async function Page() {
   }
 
   return (
-    <main className="py-10">
+    <main className="pb-10">
       <section>
         <div className="container mx-auto">
-          <h1>Create new Account</h1>
-          <CreateAccountForm user={user} />
+          <div className="grid grid-cols-2">
+            <div className="py-10">
+              <CreateAccountForm user={user} />
+            </div>
+            <CanvasComponent />
+            {/* <Lanyard /> */}
+          </div>
         </div>
       </section>
     </main>

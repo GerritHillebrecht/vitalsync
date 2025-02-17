@@ -1,15 +1,14 @@
 import { CalendarIcon } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { ReactNode } from "react";
 import { Client } from "@/models";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 interface PlannerRowClientHoverCardProps {
   children: ReactNode;

@@ -1,13 +1,11 @@
 "use client";
 
-import { Planner, usePlanner } from "@/components/planner";
-
+import { usePlanner } from "@/components/planner";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import { PlannerRowShiftService } from "./_components/planner-row-shift-service";
 
 export default function Page() {
-  const { workspace } = usePlanner();
+  const { workspace, groupedShifts } = usePlanner();
 
   return (
     <>
@@ -22,6 +20,7 @@ export default function Page() {
         <PlannerRowShiftService
           key={shiftService.id}
           shiftService={shiftService}
+          shifts={groupedShifts ? groupedShifts[shiftService.id] : {}}
         />
       ))}
     </>

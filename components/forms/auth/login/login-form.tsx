@@ -27,12 +27,7 @@ export function LoginForm({
   const t = useScopedI18n("auth.login");
 
   async function googleLogin() {
-    const path = `${window.location.origin}/${locale}/auth/callback`;
-    console.log(path);
-
-    await new Promise((resolve) => {
-      setTimeout(resolve, 5000);
-    });
+    // const path = `${window.location.origin}/${locale}/auth/callback`;
 
     const supabase = createClient();
     supabase.auth.signInWithOAuth({

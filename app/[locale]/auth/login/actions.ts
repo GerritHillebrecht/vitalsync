@@ -4,11 +4,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentLocale } from "@/locales/server";
 
 export async function login(
   prevState: { message: string },
   formData: FormData
 ) {
+  const locale = await getCurrentLocale();
   const supabase = await createClient();
 
   // type-casting here for convenience
@@ -25,7 +27,7 @@ export async function login(
   }
 
   revalidatePath(`/`, "layout");
-  redirect("/app");
+  redirect(`/${locale}/app`);
 }
 
 export async function signup(formData: FormData) {

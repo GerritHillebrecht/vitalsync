@@ -237,58 +237,38 @@ export type Database = {
       }
       shifts: {
         Row: {
-          client_id: string
           created_at: string
           date: string
           employee_id: string
           end_time: string | null
           id: string
-          requirement_id: string
           shiftService_id: string
           start_time: string | null
         }
         Insert: {
-          client_id: string
           created_at?: string
           date: string
           employee_id: string
           end_time?: string | null
           id?: string
-          requirement_id: string
           shiftService_id?: string
           start_time?: string | null
         }
         Update: {
-          client_id?: string
           created_at?: string
           date?: string
           employee_id?: string
           end_time?: string | null
           id?: string
-          requirement_id?: string
           shiftService_id?: string
           start_time?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "shifts_client_id_fkey"
-            columns: ["client_id"]
-            isOneToOne: false
-            referencedRelation: "clients"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "shifts_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
             referencedRelation: "employees"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "shifts_requirement_id_fkey"
-            columns: ["requirement_id"]
-            isOneToOne: false
-            referencedRelation: "serviceRequirements"
             referencedColumns: ["id"]
           },
           {

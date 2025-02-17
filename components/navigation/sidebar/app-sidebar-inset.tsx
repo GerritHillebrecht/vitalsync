@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/sidebar";
 import { ThemeModeToggle } from "@/components/ui/theme-selector";
 import { useCurrentLocale, useScopedI18n } from "@/locales/client";
-import { useAccount } from "@/provider";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";

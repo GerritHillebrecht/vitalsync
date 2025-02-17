@@ -87,7 +87,7 @@ export function CompanySwitcher() {
             ))}
             <DropdownMenuSeparator />
 
-            <Link href="/app">
+            <Link href={`/${locale}/app/company/create`}>
               <DropdownMenuItem className="gap-2 p-2 cursor-pointer">
                 <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                   <Plus className="size-4" />

@@ -10,6 +10,7 @@ const I18nMiddleware = createI18nMiddleware({
 
 export function middleware(request: NextRequest) {
   const redirect = I18nMiddleware(request);
+  
   if (redirect.status != 200) {
     return redirect;
   }

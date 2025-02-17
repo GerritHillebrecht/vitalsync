@@ -10,11 +10,14 @@ import {
 import {
   getCompany,
   getShiftService,
+  getShiftsInRangeForService,
   getWorkspace,
 } from "@/lib/data-access/client";
+import dayjs from "@/lib/dayjs";
+import { groupShifts } from "@/lib/utils";
 import { Shift, Workspace } from "@/models";
 import { Company } from "@/models/company";
-import dayjs from "@/lib/dayjs";
+import { ShiftService } from "@/models/shiftService";
 import {
   createContext,
   ReactNode,
@@ -22,7 +25,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ShiftService } from "@/models/shiftService";
 
 interface PlannerContextType {
   company_id?: Company["id"];
@@ -36,6 +38,7 @@ interface PlannerContextType {
 
   shifts: Shift[];
   setShifts: (shifts: Shift[]) => void;
+  groupedShifts: Record<ShiftService["id"], Record<string, Shift[]>> | null;
 
   startDate: Date;
   endDate: Date;
@@ -55,6 +58,7 @@ const defaultContextValue: PlannerContextType = {
   workspace: null,
   shiftService: null,
   shifts: [],
+  groupedShifts: null,
   setShifts: () => {},
   daysInMonth: 0,
 };
@@ -69,7 +73,9 @@ export function PlannerContextProvider({
 
   const { company_id, workspace_id, shiftService_id } = useParams();
 
-  const [startDate, setStartDate] = useState<Date>(dayjs().startOf("month").toDate());
+  const [startDate, setStartDate] = useState<Date>(
+    dayjs().startOf("month").toDate()
+  );
   const [endDate, setEndDate] = useState<Date>(dayjs().endOf("month").toDate());
   const [daysInMonth, setDaysInMonth] = useState<number>(0);
 
@@ -77,37 +83,67 @@ export function PlannerContextProvider({
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
   const [shiftService, setShiftService] = useState<ShiftService | null>(null);
   const [shifts, setShifts] = useState<Shift[]>([]);
+  const [groupedShifts, setGroupedShifts] = useState<Record<
+    ShiftService["id"],
+    Record<string, Shift[]>
+  > | null>(null);
 
   useEffect(() => {
     const abortController = new AbortController();
 
     async function fetchCompany(company_id: Company["id"]) {
-      const { data: company, error } = await getCompany(
-        company_id,
-        abortController
-      );
+      const { data: company } = await getCompany(company_id, abortController);
+
+      // if (error) {
+      //   return toast.error(error.message);
+      // }
 
       setCompany(company);
 
       return company;
     }
 
+    async function fetchShifts(company_id: Company["id"]) {
+      const { data: shifts } = await getShiftsInRangeForService(
+        startDate,
+        endDate,
+        company_id,
+        abortController
+      );
+
+      // if (error) {
+      //   console.error(error);
+      //   return toast.error(error.message);
+      // }
+
+      if (shifts) {
+        setShifts(shifts);
+        const groupedShifts = groupShifts(shifts);
+        setGroupedShifts(groupedShifts);
+      }
+    }
+
     if (company_id) {
       fetchCompany(company_id as Company["id"]);
+      fetchShifts(company_id as Company["id"]);
     }
 
     return () => abortController.abort();
-  }, [company_id]);
+  }, [company_id, startDate, endDate]);
 
   useEffect(() => {
     setWorkspace(null);
     const abortController = new AbortController();
 
     async function fetchWorkspace(workspace_id: Workspace["id"]) {
-      const { data: workspace, error } = await getWorkspace(
+      const { data: workspace } = await getWorkspace(
         workspace_id,
         abortController
       );
+
+      // if (error) {
+      //   return toast.error(error.message);
+      // }
 
       setWorkspace(workspace);
 
@@ -126,10 +162,14 @@ export function PlannerContextProvider({
     const abortController = new AbortController();
 
     async function fetchShiftService(shiftService_id: ShiftService["id"]) {
-      const { data: shiftService, error } = await getShiftService(
+      const { data: shiftService } = await getShiftService(
         shiftService_id,
         abortController
       );
+
+      // if (error) {
+      //   return toast.error(error.message);
+      // }
 
       setShiftService(shiftService);
 
@@ -157,6 +197,8 @@ export function PlannerContextProvider({
 
     setDaysInMonth(dayjs(endDate).diff(dayjs(startDate), "day") + 1);
   }, [searchParams]);
+
+  // useEffect(() => {
 
   function updateSearchParams(state: "prev" | "next" | "today") {
     const params = new URLSearchParams(searchParams.toString());
@@ -217,6 +259,7 @@ export function PlannerContextProvider({
 
     shifts,
     setShifts,
+    groupedShifts,
 
     startDate,
     endDate,

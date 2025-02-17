@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/sidebar";
 import { CompanySwitcher } from "./app-sidebar-company-switcher";
 import { AppSidebarFooter } from "./app-sidebar-footer";
-import { NavWorkspaces } from "./app-sidebar-nav-clients";
+import { NavWorkspaces } from "./app-sidebar-nav-workspaces";
+import { NavCompany } from "./app-sidebar-nav-company";
 
 export function AppSiderbar({
   ...props
@@ -19,10 +20,11 @@ export function AppSiderbar({
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        {/* <TeamSwitcher /> */}
+
         <CompanySwitcher />
       </SidebarHeader>
       <SidebarContent>
+        <NavCompany />
         <NavWorkspaces />
 
         {/* <NavWorkspace />
